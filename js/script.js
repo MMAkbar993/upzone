@@ -123,3 +123,65 @@ document.querySelector('.cta-section-button')?.addEventListener('click', functio
     // Listen for scroll events
     window.addEventListener('scroll', handleScroll);
 })();
+
+// Scroll Animation on Scroll Down
+(function() {
+    // Check if IntersectionObserver is supported
+    if (!('IntersectionObserver' in window)) {
+        // Fallback for older browsers
+        const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-fade-in, .animate-slide-left, .animate-slide-right, .animate-scale');
+        animatedElements.forEach(el => el.classList.add('animated'));
+        return;
+    }
+
+    // Create Intersection Observer
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add delay for cards in the same container for staggered effect
+                const isCard = entry.target.classList.contains('eligibility-card') || 
+                              entry.target.classList.contains('how-it-works-card');
+                const isTextElement = entry.target.classList.contains('eligibility-subtitle') ||
+                                    entry.target.classList.contains('eligibility-heading') ||
+                                    entry.target.classList.contains('eligibility-description') ||
+                                    entry.target.classList.contains('how-it-works-subtitle') ||
+                                    entry.target.classList.contains('how-it-works-heading') ||
+                                    entry.target.classList.contains('how-it-works-description') ||
+                                    entry.target.classList.contains('testimonials-heading') ||
+                                    entry.target.classList.contains('why-choose-heading') ||
+                                    entry.target.classList.contains('cta-heading') ||
+                                    entry.target.classList.contains('cta-description');
+                
+                const parent = entry.target.parentElement;
+                const siblings = parent ? Array.from(parent.children) : [];
+                const elementIndex = siblings.indexOf(entry.target);
+                
+                if (isCard && elementIndex >= 0) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animated');
+                    }, elementIndex * 100); // 100ms delay between each card
+                } else if (isTextElement && elementIndex >= 0) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animated');
+                    }, elementIndex * 150); // 150ms delay for text elements
+                } else {
+                    entry.target.classList.add('animated');
+                }
+                
+                // Optional: Unobserve after animation to improve performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-fade-in, .animate-slide-left, .animate-slide-right, .animate-scale');
+    animatedElements.forEach(el => {
+        observer.observe(el);
+    });
+})();
