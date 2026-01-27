@@ -4,9 +4,16 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Scroll Animation Styles */
@@ -129,12 +136,30 @@ body {
     text-decoration: none;
     font-size: clamp(0.875rem, 1.5vw, 1rem);
     font-weight: 400;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    position: relative;
+    padding: 0.25rem 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #10b981;
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover {
     color: #10b981;
+    transform: translateY(-2px);
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .contact-btn {
@@ -148,13 +173,41 @@ body {
     text-decoration: none;
     font-size: clamp(0.75rem, 1.5vw, 1rem);
     font-weight: 500;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
     white-space: nowrap;
     flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(86, 168, 48, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
 }
 
 .contact-btn:hover {
     background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+}
+
+.contact-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.contact-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
 }
 
 .contact-btn svg {
@@ -223,12 +276,37 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
 }
 
 .cta-button:hover {
     background: #059669;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+}
+
+.cta-button:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+.cta-button:active {
+    transform: translateY(-1px) scale(1);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
 }
 
 /* Company Logos Section */
@@ -310,8 +388,9 @@ body {
     border-radius: 24px;
     overflow: hidden;
     aspect-ratio: 4/3;
-    width: 630px;
-    height: 572px;
+    width: 100%;
+    max-width: 630px;
+    height: auto;
 }
 
 .status-image {
@@ -436,8 +515,9 @@ body {
     border-radius: 24px;
     overflow: visible;
     aspect-ratio: 4/3;
-    width: 630px;
-    height: 717px;
+    width: 100%;
+    max-width: 630px;
+    height: auto;
 }
 
 .support-image {
@@ -505,9 +585,29 @@ body {
     gap: 10px;
 }
 
+.eligibility-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
 .eligibility-card img {
-    width: 295px;
-    height: 316px;
+    width: 100%;
+    max-width: 295px;
+    height: auto;
+    aspect-ratio: 295/316;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.eligibility-card:hover {
+    transform: translateY(-8px);
+}
+
+.eligibility-card:hover img {
+    transform: scale(1.05);
 }
 
 /* Why Upzone Section */
@@ -641,12 +741,31 @@ body {
     justify-content: space-around;
     align-items: center;
     gap: 10px;
+}
 
+.how-it-works-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .how-it-works-card img {
-    width: 295px;
-    height: 316px;
+    width: 100%;
+    max-width: 295px;
+    height: auto;
+    aspect-ratio: 295/316;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.how-it-works-card:hover {
+    transform: translateY(-8px);
+}
+
+.how-it-works-card:hover img {
+    transform: scale(1.05);
 }
 
 /* Testimonials Section */
@@ -708,18 +827,33 @@ body {
     position: relative;
 }
 
+.testimonial-card {
+    transition: all 0.3s ease;
+}
+
+.testimonial-card.active:hover {
+    transform: translateX(0) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
 .testimonial-image {
     width: 250px;
     height: 250px;
     border-radius: 20px;
     overflow: hidden;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
 .testimonial-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card.active:hover .testimonial-image img {
+    transform: scale(1.05);
 }
 
 .testimonial-placeholder {
@@ -798,8 +932,13 @@ body {
 
 .testimonials-nav-btn:hover {
     background: #059669;
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    transform: scale(1.15) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+}
+
+.testimonials-nav-btn:active {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .testimonials-nav-btn svg {
@@ -822,6 +961,7 @@ body {
     background: #475569;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .pagination-dot.active {
@@ -831,6 +971,12 @@ body {
 
 .pagination-dot:hover {
     background: #64748b;
+    transform: scaleY(1.3);
+    box-shadow: 0 2px 8px rgba(100, 116, 139, 0.4);
+}
+
+.pagination-dot:active {
+    transform: scaleY(1.1);
 }
 
 /* Why Choose Upzone Section */
@@ -861,6 +1007,13 @@ body {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     max-width: 1000px;
     margin: 0 auto;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.why-choose-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
 }
 
 .why-choose-image {
@@ -868,6 +1021,11 @@ body {
     height: auto;
     display: block;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.why-choose-card:hover .why-choose-image {
+    transform: scale(1.03);
 }
 
 /* CTA Section */
@@ -914,12 +1072,37 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
 }
 
 .cta-section-button:hover {
     background: #059669;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+}
+
+.cta-section-button:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+.cta-section-button:active {
+    transform: translateY(-1px) scale(1);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
 }
 
 .cta-mask {
@@ -1009,11 +1192,26 @@ body {
     font-weight: 600;
     margin-bottom: 3rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.footer-cta-link::after {
+    content: '→';
+    margin-left: 0.5rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
 }
 
 .footer-cta-link:hover {
     color: #059669;
+    transform: translateX(5px);
+}
+
+.footer-cta-link:hover::after {
+    transform: translateX(5px);
 }
 
 .footer-copyright {
@@ -1055,11 +1253,23 @@ body {
     font-size: clamp(0.875rem, 1.5vw, 1rem);
     color: #e5e7eb;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .footer-link:hover {
     color: #10B981;
+    transform: translateX(3px);
+}
+
+.footer-link svg {
+    transition: transform 0.3s ease;
+}
+
+.footer-link:hover svg {
+    transform: scale(1.1);
 }
 
 .footer-hours {
@@ -1088,12 +1298,20 @@ body {
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .footer-social-icon:hover {
     color: #10B981;
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.1);
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.footer-social-icon:active {
+    transform: translateY(-1px) scale(1.05);
 }
 
 .footer-social-icon svg {
@@ -1114,11 +1332,29 @@ body {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.25rem 0;
+}
+
+.footer-link-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #10B981;
+    transition: width 0.3s ease;
 }
 
 .footer-link-text:hover {
     color: #10B981;
+    transform: translateY(-1px);
+}
+
+.footer-link-text:hover::after {
+    width: 100%;
 }
 
 .footer-link-separator {
@@ -1146,9 +1382,24 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
 }
 
 .contact-us-btn {
@@ -1162,6 +1413,7 @@ body {
     white-space: nowrap;
     margin-bottom: 0.5rem;
     font-weight: 400;
+    transition: all 0.3s ease;
 }
 
 .floating-btn-container {
@@ -1175,9 +1427,26 @@ body {
     color: #ffffff;
 }
 
+.phone-btn:hover {
+    background: #60a5fa;
+    transform: scale(1.15) translateY(-3px);
+    box-shadow: 0 8px 25px rgba(147, 197, 253, 0.5);
+}
+
 .whatsapp-btn {
     background: #86efac;
     color: #ffffff;
+}
+
+.whatsapp-btn:hover {
+    background: #4ade80;
+    transform: scale(1.15) translateY(-3px);
+    box-shadow: 0 8px 25px rgba(134, 239, 172, 0.5);
+}
+
+.floating-btn:hover::before {
+    width: 200%;
+    height: 200%;
 }
 
 .floating-btn:hover {
@@ -1185,9 +1454,21 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+.floating-btn:active {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 .contact-us-btn:hover {
     background: #f9fafb;
     border-color: #9ca3af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-us-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .floating-btn svg {
@@ -1196,6 +1477,31 @@ body {
 }
 
 /* Responsive Design */
+/* Large Tablets and Small Desktops */
+@media (max-width: 1400px) {
+    .container {
+        max-width: 100%;
+        padding: 0 2rem;
+    }
+
+    .status-image-wrapper,
+    .support-image-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .status-image-wrapper {
+        width: 100%;
+        height: auto;
+    }
+
+    .support-image-wrapper {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Tablets */
 @media (max-width: 1024px) {
     .container {
         padding: 0 1.5rem;
@@ -1205,12 +1511,63 @@ body {
         gap: 1.5rem;
     }
 
+    .hero {
+        height: auto;
+        min-height: 600px;
+    }
+
+    .status-container,
+    .support-container,
+    .why-upzone-container {
+        gap: 3rem;
+    }
+
     .eligibility-cards {
-        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .eligibility-card {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 180px;
+        max-width: 280px;
+    }
+
+    .eligibility-card img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
     }
 
     .how-it-works-cards {
-        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .how-it-works-card {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 180px;
+        max-width: 280px;
+    }
+
+    .how-it-works-card img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .testimonial-card {
+        grid-template-columns: 180px 1fr;
+        gap: 1.5rem;
+    }
+
+    .testimonial-image {
+        width: 180px;
+        height: 180px;
     }
 
     .footer-container {
@@ -1268,10 +1625,17 @@ body {
 
     .hero {
         padding: 100px 1rem 60px;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .hero-content {
+        margin-top: 30px;
     }
 
     .hero-title {
         margin-bottom: 1rem;
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
     }
 
     .company-logos {
@@ -1299,6 +1663,9 @@ body {
 
     .status-image-wrapper {
         order: 1;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
     }
 
     .status-content {
@@ -1316,6 +1683,9 @@ body {
 
     .support-image-wrapper {
         order: 1;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
     }
 
     .support-content {
@@ -1334,12 +1704,35 @@ body {
     }
 
     .eligibility-cards {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .eligibility-card {
-        padding: 1.5rem;
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .eligibility-card img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .how-it-works-cards {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .how-it-works-card {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .how-it-works-card img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
     }
 
     .why-upzone {
@@ -1384,14 +1777,32 @@ body {
     }
 
     .testimonial-card {
-        grid-template-columns: 200px 1fr;
-        gap: 2rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
         padding: 2rem;
+        text-align: center;
     }
 
     .testimonial-image {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+
+    .testimonials-carousel-wrapper {
+        gap: 0.5rem;
+    }
+
+    .testimonials-carousel {
+        margin: 0 -15px;
+    }
+
+    .testimonials-nav-prev {
+        margin-right: -15px;
+    }
+
+    .testimonials-nav-next {
+        margin-left: -15px;
     }
 
     .testimonials-nav-btn {
@@ -1557,13 +1968,36 @@ body {
     }
 
     .eligibility-cards {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
+        flex-direction: column;
+        gap: 1rem;
         margin-top: 2rem;
     }
 
     .eligibility-card {
-        padding: 1.5rem;
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .eligibility-card img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .how-it-works-cards {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .how-it-works-card {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .how-it-works-card img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
     }
 
     .card-icon {
@@ -1610,16 +2044,6 @@ body {
         margin-bottom: 2rem;
     }
 
-    .how-it-works-cards {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-        margin-top: 2rem;
-    }
-
-    .how-it-works-card {
-        padding: 1.5rem;
-    }
-
     .how-it-works-icon {
         margin-bottom: 1rem;
     }
@@ -1633,7 +2057,7 @@ body {
     }
 
     .testimonials-carousel-wrapper {
-        gap: 1rem;
+        gap: 0.5rem;
     }
 
     .testimonial-card {
@@ -1644,13 +2068,13 @@ body {
     }
 
     .testimonial-image {
-        width: 180px;
-        height: 180px;
+        width: 150px;
+        height: 150px;
         margin: 0 auto;
     }
 
     .testimonials-carousel {
-        margin: 0 -20px;
+        margin: 0 -10px;
     }
 
     .testimonials-nav-btn {
@@ -1659,11 +2083,11 @@ body {
     }
 
     .testimonials-nav-prev {
-        margin-right: -20px;
+        margin-right: -10px;
     }
 
     .testimonials-nav-next {
-        margin-left: -20px;
+        margin-left: -10px;
     }
 
     .testimonials-pagination {
@@ -1745,17 +2169,266 @@ body {
         display: none;
     }
 
+    .status-image-wrapper,
+    .support-image-wrapper {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+    }
+
+    .status-image-wrapper {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .support-image-wrapper {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .status-image,
+    .support-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .why-upzone-image-wrapper,
+    .why-choose-card {
+        width: 100%;
+    }
+
+    .why-upzone-image,
+    .why-choose-image {
+        width: 100%;
+        height: auto;
+    }
+
     .floating-buttons {
         bottom: 0.75rem;
         right: 0.75rem;
         gap: 0.75rem;
     }
+
+    .floating-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .contact-us-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.75rem;
+        min-height: 44px;
+    }
+
+    .cta-button,
+    .cta-section-button {
+        min-height: 44px;
+        padding: 0.875rem 2rem;
+    }
+
+    .testimonials-nav-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .pagination-dot {
+        min-width: 40px;
+        min-height: 8px;
+    }
 }
 
-/* Ensure background image covers properly on all devices */
+/* Medium devices (tablets in portrait) */
+@media (max-width: 900px) and (min-width: 769px) {
+    .status-container,
+    .support-container,
+    .why-upzone-container {
+        gap: 2.5rem;
+    }
+
+    .eligibility-cards,
+    .how-it-works-cards {
+        gap: 1.25rem;
+    }
+}
+
+/* Small tablets and large phones */
+@media (max-width: 640px) {
+    .hero {
+        height: auto;
+        min-height: 500px;
+        padding: 90px 1rem 50px;
+    }
+
+    .hero-content {
+        margin-top: 30px;
+    }
+
+    .eligibility-subtitle,
+    .how-it-works-subtitle {
+        margin-left: 0;
+    }
+
+    .testimonials-nav-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .testimonials-nav-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    .hero {
+        padding: 80px 0.75rem 40px;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .cta-button,
+    .cta-section-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .testimonials-nav-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .floating-buttons {
+        bottom: 0.5rem;
+        right: 0.5rem;
+    }
+
+    .floating-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .contact-us-btn {
+        min-height: 44px;
+    }
+
+    .footer {
+        padding: 2rem 0.75rem 1rem;
+    }
+
+    .footer-social-icons {
+        gap: 0.5rem;
+    }
+
+    .footer-social-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .testimonial-image {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Landscape orientation for mobile */
 @media (orientation: landscape) and (max-height: 600px) {
     .bg-image {
         object-fit: cover;
         object-position: center top;
+    }
+
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 1rem 40px;
+    }
+
+    .hero-content {
+        margin-top: 0;
+    }
+
+    .header {
+        padding: 0.5rem 0;
+    }
+
+    .floating-buttons {
+        bottom: 0.5rem;
+        right: 0.5rem;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    .hero-content {
+        max-width: 1400px;
+    }
+}
+
+/* Ensure all images are responsive */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Touch-friendly targets */
+button,
+a,
+.floating-btn,
+.contact-btn,
+.cta-button,
+.cta-section-button,
+.testimonials-nav-btn,
+.pagination-dot {
+    -webkit-tap-highlight-color: rgba(16, 185, 129, 0.3);
+    touch-action: manipulation;
+}
+
+/* Prevent text size adjustment on iOS */
+@media screen and (max-width: 480px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* Improve scrolling on mobile */
+@media (max-width: 768px) {
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .floating-buttons {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .hero {
+        background: white;
     }
 }
